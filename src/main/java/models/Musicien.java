@@ -10,14 +10,16 @@ package models;
 public class Musicien {
 	private String nom;
 	private String prenom;
+	private String password;
 	private Adresse adresse;
 	private String telephone;
 	private String email;
 	private String instrument;
 	
-	public Musicien(String nom, String prenom, Adresse adresse, String telephone, String email, String instrument) {
+	public Musicien(String nom, String prenom, String password, Adresse adresse, String telephone, String email, String instrument) {
 		this.setNom(nom);
 		this.setPrenom(prenom);
+		this.setPassword(password);
 		this.setAdresse(adresse);
 		this.setTelephone(telephone);
 		this.setEmail(email);
@@ -50,6 +52,20 @@ public class Musicien {
 	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**

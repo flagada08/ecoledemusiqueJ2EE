@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 <title>Header</title>
+	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -13,23 +14,23 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-  <a class="navbar-brand" href="index">Home</a>
+  <a class="navbar-brand" href="index">Accueil</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link" href="login">Login</a>
+			<a class="nav-link" href="login">Connexion</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="form-musicien">Formulaire d'inscription musicien</a>
+			<a class="nav-link" href="form-musicien">Inscription musicien</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link disabled" href="form-groupe">Inscription groupe</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="profil-musicien">Profil</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link disabled" href="form-groupe">Formulaire d'inscription groupe</a>
 		</li>
 	</ul>
   </div>

@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String VUE = "/WEB-INF/views/login.jsp";
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request, response);
+		request.getRequestDispatcher(VUE).forward(request, response);
 	}
 
 	/**
