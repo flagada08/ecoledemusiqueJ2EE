@@ -26,6 +26,8 @@ public class ServletFormMusicien extends HttpServlet {
 	public static final String CHAMP_PRENOM = "prenom_musicien";
     public static final String CHAMP_PASS = "password_musicien";
     public static final String CHAMP_CONF = "confirmation_password_musicien";
+    public static final String CHAMP_NUM = "numero_musicien";
+    
     public static final String ATT_ERREURS  = "erreurs";
     public static final String ATT_RESULTAT = "resultat";
        
@@ -48,7 +50,7 @@ public class ServletFormMusicien extends HttpServlet {
 		String prenom = request.getParameter(CHAMP_PRENOM);
 		String password = request.getParameter(CHAMP_PASS);
 		String confirmation = request.getParameter(CHAMP_CONF);
-		String numero = request.getParameter("numero_musicien");
+		String numero = request.getParameter(CHAMP_NUM);
 		String rue = request.getParameter("rue_musicien");
 		String codePostal = request.getParameter("code-postal_musicien");
 		String ville = request.getParameter("ville_musicien");
@@ -86,6 +88,7 @@ public class ServletFormMusicien extends HttpServlet {
             resultat = "Échec de l'inscription.";
         }
 		
+		// Stockage du résultat et des messages d'erreur dans l'objet request
 		request.setAttribute(ATT_ERREURS, erreurs);
         request.setAttribute(ATT_RESULTAT, resultat);
 		
@@ -96,31 +99,27 @@ public class ServletFormMusicien extends HttpServlet {
 		request.setAttribute("musicien", musicien);
 		request.setAttribute("adresse", adresse);
 		
-		RequestDispatcher dispatcher;
-		
-		dispatcher = request.getRequestDispatcher("WEB-INF/views/profilMusicien.jsp");
-		
-		dispatcher.forward(request, response);
+		request.getRequestDispatcher(VUE).forward(request, response);
 	}
 	
 	public void validationNom(String nom) throws Exception {
-		if (nom != null && nom.trim().length() < 1) {
-			throw new Exception("Nom obligatoire");
+		if (nom != null && nom.trim().length() < 3) {
+			throw new Exception("Nom obligatoire et doit contenir au moins 3 caractères");
 		}
 	}
 	
 	public void validationPrenom(String prenom) throws Exception {
-		if (prenom != null && prenom.trim().length() < 1) {
-			throw new Exception("Prénom obligatoire");
+		if (prenom != null && prenom.trim().length() < 3) {
+			throw new Exception("Prénom obligatoire et doit contenir au moins 3 caractères");
 		}
 	}
 
 	public void validationPasswords(String password, String confirmation) throws Exception {
 		if (password != null && password.trim().length() != 0 && confirmation != null && confirmation.trim().length() != 0) {
 			if (!password.equals(confirmation)) {
-				throw new Exception("Mot de passe diférents");
-			} else if (password.trim().length() < 3) {
-				throw new Exception("Mot de passe doit être composé de 3 caractères minimum");
+				throw new Exception("Confirmation du mot de passe différent");
+			} else if (password.trim().length() < 5) {
+				throw new Exception("Le mot de passe doit être composé de 5 caractères minimum");
 			}
 		} else {
 			throw new Exception("Les champs Mot de passe et Confirmer le mot de passe sont obligatoire");
