@@ -1,7 +1,4 @@
-/**
- * 
- */
-package models;
+package beans;
 
 /**
  * @author User-05

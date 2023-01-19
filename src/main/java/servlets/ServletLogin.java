@@ -1,4 +1,4 @@
-package controllers;
+package servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletProfilMusicien
+ * Servlet implementation class ServletLogin
  */
-@WebServlet("/profil-musicien")
-public class ServletProfilMusicien extends HttpServlet {
+@WebServlet("/login")
+public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static final String VUE = "/WEB-INF/views/profilMusicien.jsp";
-   
+	public static final String VUE = "/WEB-INF/views/login.jsp";
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
