@@ -1,0 +1,11 @@
+nav .navbar-brand {
+	font-weight: bold;
+}
+
+form .erreur {
+    color: red;
+}
+
+form .succes {
+    color: green;
+}

@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ServletProfilMusicien
@@ -14,13 +15,22 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletProfilMusicien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public static final String VUE = "/WEB-INF/views/profilMusicien.jsp";
+	public static final String VUE_MUSICIEN = "/restrictions/profilMusicien.jsp";
+	public static final String VUE_PUBLIC = "/public.jsp";
+	
+	public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(VUE).forward(request, response);
+		HttpSession session = request.getSession();
+		 
+		if (session.getAttribute(ATT_SESSION_MUSICIEN) == null) {
+            response.sendRedirect(request.getContextPath() + VUE_PUBLIC);
+        } else {
+            this.getServletContext().getRequestDispatcher(VUE_MUSICIEN).forward(request, response);
+        }
 	}
 
 	/**

@@ -66,20 +66,22 @@ public final class InscriptionFormMusicien {
 		String email = getValeurChamp(request, CHAMP_MAIL);
 		String instrument = getValeurChamp(request, CHAMP_INSTRU);
 		
-		Adresse adresse = new Adresse(numero, rue, codePostal, ville);
-		Musicien musicien = new Musicien(nom, prenom, password, adresse, telephone, email, instrument);
+		Adresse adresse = new Adresse();
+		Musicien musicien = new Musicien();
 		
 		try {
 			validationNom(nom);
 		} catch (Exception e) {
 			setErreur(CHAMP_NOM, e.getMessage());
 		}
+		musicien.setNom(nom);
 		
 		try {
 			validationPrenom(prenom);			
 		} catch (Exception e) {
 			setErreur(CHAMP_PRENOM, e.getMessage());
 		}
+		musicien.setPrenom(prenom);
 		
 		try {
 			validationPasswords(password, confirmation);			
@@ -87,12 +89,17 @@ public final class InscriptionFormMusicien {
 			setErreur(CHAMP_PASS, e.getMessage());
 			setErreur(CHAMP_CONF, null);
 		}
+		musicien.setPassword(password);
 		
 		try {
 			validationEmail(email);
 		} catch (Exception e) {
 			setErreur(CHAMP_MAIL, e.getMessage());
 		}
+		musicien.setEmail(email);
+		
+		musicien.setTelephone(telephone);
+		musicien.setInstrument(instrument);
 		
 		if (erreurs.isEmpty()) {
             resultat = "Succès de l'inscription";

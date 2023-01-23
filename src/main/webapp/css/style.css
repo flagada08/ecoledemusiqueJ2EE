@@ -2,10 +2,19 @@ nav .navbar-brand {
 	font-weight: bold;
 }
 
-form .erreur {
+h1 {
+	text-align: center;
+	background-color: lightgray;
+}
+
+.requis {
+	color: red;
+}
+
+.erreur {
     color: red;
 }
 
-form .succes {
+.succes {
     color: green;
 }

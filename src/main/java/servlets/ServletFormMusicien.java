@@ -19,10 +19,10 @@ public class ServletFormMusicien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String VUE_FORM = "/WEB-INF/views/formMusicien.jsp";
-	public static final String VUE_PROFIL ="/WEB-INF/views/profilMusicien.jsp";
+	public static final String VUE_PROFIL ="/restrictions/profilMusicien.jsp";
     
+	public static final String ATT_FORM = "form";
     public static final String ATT_MUSICIEN  = "musicien";
-    public static final String ATT_FORM = "form";
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

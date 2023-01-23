@@ -13,7 +13,7 @@ public class Musicien {
 	private String email;
 	private String instrument;
 	
-	public Musicien(String nom, String prenom, String password, Adresse adresse, String telephone, String email, String instrument) {
+	public Musicien() {
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setPassword(password);

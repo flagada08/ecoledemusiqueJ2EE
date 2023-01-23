@@ -10,7 +10,7 @@ public class Adresse {
 	private String codePostal;
 	private String ville;
 	
-	public Adresse(String numero, String rue, String codePostal, String ville) {
+	public Adresse() {
 		this.setNumero(numero);
 		this.setRue(rue);
 		this.setCodePostal(codePostal);
