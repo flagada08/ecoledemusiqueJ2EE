@@ -32,6 +32,10 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cookie = getCookieValue(request, COOKIE);
+		
+		if (cookie != null) {
+			
+		}
 		this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 	}
 
@@ -55,6 +59,10 @@ public class ServletLogin extends HttpServlet {
 			session.setAttribute(ATT_SESSION_MUSICIEN, null);
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		}
+	}
+	
+	private static void setCookie(HttpServletResponse response, String nom) {
+		
 	}
 	
 	private static String getCookieValue( HttpServletRequest request, String nom ) {
