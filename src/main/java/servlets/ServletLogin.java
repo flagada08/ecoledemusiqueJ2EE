@@ -22,9 +22,10 @@ public class ServletLogin extends HttpServlet {
 	public static final String VUE_LOGIN = "/WEB-INF/views/login.jsp";
 	public static final String VUE_PROFIL = "/restrictions/profilMusicien.jsp";
 	
+	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
-    public static final String ATT_FORM = "form";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
+    
     public static final String COOKIE = "cookie";
     
 	/**

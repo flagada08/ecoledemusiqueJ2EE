@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.Musicien;
+
 /**
  * Servlet implementation class ServletProfilMusicien
  */
@@ -21,7 +23,10 @@ public class ServletProfilMusicien extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            this.getServletContext().getRequestDispatcher(VUE_MUSICIEN).forward(request, response);
+			// Recupere la session
+			HttpSession session = request.getSession();		  
+			
+			this.getServletContext().getRequestDispatcher(VUE_MUSICIEN).forward(request, response);
         }
 
 	/**

@@ -43,10 +43,11 @@ public class ConnexionFormMusicien {
 	}
 	
 	public Musicien connexionMusicien(HttpServletRequest request) {
+		Musicien musicien = new Musicien();
+		
 		String email = getValeurChamp(request, CHAMP_EMAIL);
 		String password = getValeurChamp(request, CHAMP_PASS);
 		
-		Musicien musicien = new Musicien();
 		
 		try {
 			validationEmail(email);
