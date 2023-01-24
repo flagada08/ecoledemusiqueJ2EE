@@ -22,10 +22,19 @@
   <div class="collapse navbar-collapse" id="navbarNav">
 	<ul class="navbar-nav">
 		<li class="nav-item">
+		<c:choose>
+		<c:when test="${empty sessionScope.sessionMusicien}">
 			<a class="nav-link" href="login">Connexion</a>
+		</c:when>
+		<c:otherwise>
+			<a class="nav-link" href="logout">Déconnexion</a>
+		</c:otherwise>
+		</c:choose>
 		</li>
 		<li class="nav-item">
+		<c:if test="${empty sessionScope.sessionMusicien}">
 			<a class="nav-link" href="form-musicien">Inscription musicien</a>
+		</c:if>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link disabled" href="form-groupe">Inscription groupe</a>

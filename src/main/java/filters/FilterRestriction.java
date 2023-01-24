@@ -16,12 +16,13 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class FilterRestriction
  */
-@WebFilter("/restrictions/*")
+@WebFilter("/profil-musicien")
 public class FilterRestriction extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
 
 	public static final String VUE_PUBLIC = "/public.jsp";
 	public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
+	
 	/**
      * @see HttpFilter#HttpFilter()
      */
@@ -30,12 +31,12 @@ public class FilterRestriction extends HttpFilter implements Filter {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * @see Filter#init(FilterConfig)
+     */
+    public void init(FilterConfig fConfig) throws ServletException {
+    	// TODO Auto-generated method stub
+    }
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -54,7 +55,7 @@ public class FilterRestriction extends HttpFilter implements Filter {
          */
         if (session.getAttribute(ATT_SESSION_MUSICIEN) == null) {
             /* Redirection vers la page publique */
-            res.sendRedirect(req.getContextPath() + VUE_PUBLIC);
+        	res.sendRedirect(req.getContextPath() + VUE_PUBLIC);
         } else {
             /* Affichage de la page restreinte */
             chain.doFilter(req, res);
@@ -62,10 +63,9 @@ public class FilterRestriction extends HttpFilter implements Filter {
 	}
 
 	/**
-	 * @see Filter#init(FilterConfig)
+	 * @see Filter#destroy()
 	 */
-	public void init(FilterConfig fConfig) throws ServletException {
+	public void destroy() {
 		// TODO Auto-generated method stub
 	}
-
 }

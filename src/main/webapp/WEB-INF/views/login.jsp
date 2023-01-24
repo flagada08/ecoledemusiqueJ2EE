@@ -1,5 +1,8 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <h1>Connexion</h1>
+<c:if test="${!empty sessionScope.sessionMusicien}">
+	<p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionMusicien.email}</p>
+</c:if>
 <form action="<c:url value="login"/>" method="post">
   <div class="form-group row">
     <div class="col-md-4">
@@ -22,8 +25,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Se connecter</button>
   <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-  <c:if test="${!empty sessionScope.sessionMusicien}">
-  	<p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionMusicien.email}</p>
-  </c:if>
 </form>
 <%@ include file="/WEB-INF/views/footer.jsp" %>
