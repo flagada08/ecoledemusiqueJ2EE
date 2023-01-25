@@ -14,6 +14,7 @@ import beans.Musicien;
 public class ConnexionFormMusicien {
 	private static final String CHAMP_EMAIL = "email_connexion";
 	private static final String CHAMP_PASS = "password_connexion";
+	private static final String CHAMP_KEEP = "keep_connexion";
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
@@ -69,7 +70,7 @@ public class ConnexionFormMusicien {
             resultat = "Échec de la connexion";
         }
 		
-		return musicien;		
+		return musicien;
 	}
 	
 	private void validationEmail(String email) throws Exception {

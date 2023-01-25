@@ -15,7 +15,7 @@ public class CookieHelper {
 		return cookie;
 	}
 	
-	public Cookie getAuthCookie() {
+	public Cookie setAuthCookie() {
 		TokenHelper token = new TokenHelper();
 		String tokenValueSized = token.generateToken(50);
 		

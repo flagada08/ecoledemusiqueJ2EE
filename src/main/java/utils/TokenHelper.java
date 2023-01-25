@@ -19,7 +19,7 @@ public class TokenHelper {
 		return resultat.toString();
 	}
 	
-	public String getCSRF() {
+	public String setCSRF() {
 		return generateToken(100);
 	}
 }

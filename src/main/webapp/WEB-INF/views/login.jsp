@@ -20,8 +20,8 @@
   	</div>
   </div>
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="check">
-    <label class="form-check-label" for="check">Rester connecté</label>
+    <input type="checkbox" class="form-check-input" id="keep" name="keep_connexion">
+    <label class="form-check-label" for="keep">Rester connecté</label>
   </div>
   <button type="submit" class="btn btn-primary">Se connecter</button>
   <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
