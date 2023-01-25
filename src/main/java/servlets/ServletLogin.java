@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,18 +24,11 @@ public class ServletLogin extends HttpServlet {
 	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
-    
-    public static final String COOKIE = "cookie";
-    
+        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cookie = getCookieValue(request, COOKIE);
-		
-		if (cookie != null) {
-			
-		}
 		this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 	}
 
@@ -61,20 +53,4 @@ public class ServletLogin extends HttpServlet {
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		}
 	}
-	
-	private static void setCookie(HttpServletResponse response, String nom) {
-		
-	}
-	
-	private static String getCookieValue( HttpServletRequest request, String nom ) {
-        Cookie[] cookies = request.getCookies();
-        if ( cookies != null ) {
-            for ( Cookie cookie : cookies ) {
-                if ( cookie != null && nom.equals( cookie.getName() ) ) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
-    }
 }
