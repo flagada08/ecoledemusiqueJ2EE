@@ -22,8 +22,8 @@ public class CookieHelper {
 		return generateCookie("auth-token", tokenValueSized, COOKIE_MAX_AGE);
 	}
 	
-	public Cookie destroyCookie(Cookie nom) {
-		nom.setMaxAge(0);
-		return nom;
+	public Cookie destroyCookie(Cookie cookie) {
+		cookie.setMaxAge(0);
+		return cookie;
 	}
 }

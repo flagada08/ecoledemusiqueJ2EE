@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,15 +43,15 @@ public class FilterRestriction extends HttpFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		/* Cast des objets request et response */
+		// Cast des objets request et response
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
-        /* Récupération de la session depuis la requête */
+                
+        // Récupération de la session depuis la requête
         HttpSession session = req.getSession();
         
         /**
-         * Si l'objet utilisateur n'existe pas dans la session en cours, alors
+         * Si l'objet musicien n'existe pas dans la session en cours, alors
          * l'utilisateur n'est pas connecté.
          */
         if (session.getAttribute(ATT_SESSION_MUSICIEN) == null) {

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -56,9 +57,20 @@ public class ServletLogin extends HttpServlet {
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		
 		CookieHelper cookieHelper = new CookieHelper();
-		Cookie cookie = cookieHelper.setAuthCookie();
+		Cookie setCookie = cookieHelper.setAuthCookie();
 		
-		response.addCookie(cookie);
+		Cookie[] cookies = request.getCookies();
+		
+		if (request.getParameter("keep_connexion") != null) {
+			response.addCookie(setCookie);
+		} else if(cookies != null) {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals("auth-token")) {
+					cookieHelper.destroyCookie(cookie);
+					response.addCookie(cookie);
+				}
+			}
+		}
 		
 		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
