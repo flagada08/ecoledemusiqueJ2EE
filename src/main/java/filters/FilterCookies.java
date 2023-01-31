@@ -13,12 +13,14 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.User;
+
 import beans.Musicien;
 
 /**
  * Servlet Filter implementation class FilterCookies
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class FilterCookies extends HttpFilter implements Filter {
    	private static final long serialVersionUID = 1L;
 
@@ -51,9 +53,11 @@ public class FilterCookies extends HttpFilter implements Filter {
         // Récupération des cookies
         Cookie[] cookies = req.getCookies();
         
-        for (Cookie cookie : cookies) {
-        	if (cookie.getName().equals("auth-token")) {
-        		res.addCookie(cookie);
+        if (cookies != null) {        	
+        	for (Cookie cookie : cookies) {
+        		if (cookie.getName().equals("auth-token")) {
+        			res.addCookie(cookie);
+        		}
         	}
         }
         

@@ -32,15 +32,6 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		
-		if(cookies != null) {
-			for (Cookie cookie : cookies) {
-				if(cookie.getName().equals("auth-token")) {
-					request.setAttribute("auth-token", cookie.getValue());
-				}
-			}
-		}
 		this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 	}
 
@@ -48,29 +39,25 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnexionFormMusicien form = new ConnexionFormMusicien();		
+		ConnexionFormMusicien form = new ConnexionFormMusicien();	
 		Musicien musicien = form.connexionMusicien(request);
 		
 		HttpSession session = request.getSession();
 		
-		request.setAttribute(ATT_FORM, form);
-		request.setAttribute(ATT_MUSICIEN, musicien);
+		String mail = request.getParameter("email_connexion");
+		String password = request.getParameter("password_connexion");
 		
-		CookieHelper cookieHelper = new CookieHelper();
-		Cookie setCookie = cookieHelper.setAuthCookie();
-		
-		Cookie[] cookies = request.getCookies();
-		
+		CookieHelper cookieHelper = new CookieHelper();		
+		Cookie cookie = cookieHelper.setAuthCookie();
+				
 		if (request.getParameter("keep_connexion") != null) {
 			response.addCookie(setCookie);
-		} else if(cookies != null) {
-			for (Cookie cookie : cookies) {
-				if(cookie.getName().equals("auth-token")) {
-					cookieHelper.destroyCookie(cookie);
-					response.addCookie(cookie);
-				}
-			}
+		} else {
+			response.addCookie(delCookie);
 		}
+		
+		request.setAttribute(ATT_FORM, form);
+		request.setAttribute(ATT_MUSICIEN, musicien);
 		
 		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
