@@ -51,9 +51,9 @@ public class ServletLogin extends HttpServlet {
 		Cookie cookie = cookieHelper.setAuthCookie();
 				
 		if (request.getParameter("keep_connexion") != null) {
-			response.addCookie(setCookie);
+			response.addCookie(cookie);
 		} else {
-			response.addCookie(delCookie);
+			cookieHelper.destroyCookie(cookie);
 		}
 		
 		request.setAttribute(ATT_FORM, form);

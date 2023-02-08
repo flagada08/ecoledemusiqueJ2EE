@@ -24,6 +24,8 @@ import beans.Musicien;
 public class FilterCookies extends HttpFilter implements Filter {
    	private static final long serialVersionUID = 1L;
 
+   	public static final String VUE_PUBLIC = "/public.jsp";
+   	
 	private static final String email = new Musicien().getEmail();
 	private static final String password = new Musicien().getPassword();
 	
@@ -55,14 +57,16 @@ public class FilterCookies extends HttpFilter implements Filter {
         
         if (cookies != null) {        	
         	for (Cookie cookie : cookies) {
-        		if (cookie.getName().equals("auth-token")) {
-        			res.addCookie(cookie);
+        		if (cookie.getName().equals("auth-token") && cookie.getValue().equals(cookie.toString())) {
+        			
+        		} else {
+        			/* Redirection vers la page publique */
+//                	res.sendRedirect(req.getContextPath() + VUE_PUBLIC);
         		}
         	}
         }
-        
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+        // pass the request along the filter chain
+        chain.doFilter(req, res);
 	}
 
 	/**

@@ -61,6 +61,7 @@ public class ConnexionFormMusicien {
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
 		musicien.setPassword(password);
+		System.out.println(password);
 		
 		if (erreurs.isEmpty()) {
             resultat = "Succès de la connexion";

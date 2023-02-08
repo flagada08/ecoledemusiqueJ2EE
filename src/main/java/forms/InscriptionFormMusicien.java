@@ -87,7 +87,7 @@ public final class InscriptionFormMusicien {
 			validationPasswords(password, confirmation);			
 		} catch (Exception e) {
 			setErreur(CHAMP_PASS, e.getMessage());
-			setErreur(CHAMP_CONF, null);
+			setErreur(CHAMP_CONF, e.getMessage());
 		}
 		musicien.setPassword(password);
 		

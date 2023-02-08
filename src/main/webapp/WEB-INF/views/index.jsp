@@ -20,7 +20,10 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-	<h1>École de musique</h1>	
+<h1>École de musique</h1>
+	<c:forEach var="musicien" items="${ musiciens }">
+		<li><c:out value="${ musicien.nom }"/> <c:out value="${ musicien.prenom }"/> | instrument joué : <c:out value="${ musicien.instrument }" /></li>
+	</c:forEach>
     <c:if test="${!empty sessionScope.sessionMusicien}">
         <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionMusicien.email}</p>
     </c:if>

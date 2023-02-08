@@ -5,10 +5,10 @@
 </c:if>
 <section>
 	<div>
-		Nom : <c:out value="${ sessionScope.sessionMusicien.nom }"/>
+		Nom : <c:out value="${ musicien.nom }"/>
 	</div>
 	<div>
-		Prénom : ${ sessionScope.sessionMusicien.prenom }
+		Prénom : ${ musicien.prenom }
 	</div>
 	<fieldset>
     	<legend>Adresse</legend>
@@ -20,13 +20,13 @@
 		</div>
 	</fieldset>
 	<div>
-		Téléphone : ${ sessionScope.sessionMusicien.telephone }
+		Téléphone : ${ musicien.telephone }
 	</div>
 	<div>
-		e-mail : ${ sessionScope.sessionMusicien.email }
+		e-mail : ${ musicien.email }
 	</div>
 	<div>
-		Instrument joué : ${ sessionScope.sessionMusicien.instrument }
+		Instrument joué : ${ musicien.instrument }
 	</div>
 </section>
 <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>

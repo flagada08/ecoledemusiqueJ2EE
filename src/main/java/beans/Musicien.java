@@ -5,10 +5,11 @@ package beans;
  *
  */
 public class Musicien {
+	private Long id;
 	private String nom;
 	private String prenom;
 	private String password;
-	private Adresse adresse;
+	private Long idAdresse;
 	private String telephone;
 	private String email;
 	private String instrument;
@@ -17,10 +18,24 @@ public class Musicien {
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setPassword(password);
-		this.setAdresse(adresse);
+		this.setIdAdresse(idAdresse);
 		this.setTelephone(telephone);
 		this.setEmail(email);
 		this.setInstrument(instrument);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -66,17 +81,17 @@ public class Musicien {
 	}
 
 	/**
-	 * @return the adresse
+	 * @return the idAdresse
 	 */
-	public Adresse getAdresse() {
-		return adresse;
+	public Long getIdAdresse() {
+		return idAdresse;
 	}
 
 	/**
-	 * @param adresse the adresse to set
+	 * @param idAdresse the idAdresse to set
 	 */
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
+	public void setIdAdresse(Long idAdresse) {
+		this.idAdresse = idAdresse;
 	}
 
 	/**
