@@ -13,7 +13,7 @@ import dao.MusicienDao;
 /**
  * Servlet implementation class ServletIndex
  */
-@WebServlet("/index")
+@WebServlet("/")
 public class ServletIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MusicienDao musicienDao;

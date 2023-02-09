@@ -22,7 +22,7 @@ public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String VUE_LOGIN = "/WEB-INF/views/login.jsp";
-	public static final String VUE_PROFIL = "/restrictions/profilMusicien.jsp";
+	public static final String URL_REDIRECTION = "http://localhost:8080/ecoledemusique/index";
 	
 	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
@@ -61,7 +61,7 @@ public class ServletLogin extends HttpServlet {
 		
 		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
-			this.getServletContext().getRequestDispatcher(VUE_PROFIL).forward(request, response);
+			response.sendRedirect(URL_REDIRECTION);
 		} else {
 			session.setAttribute(ATT_SESSION_MUSICIEN, null);
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
