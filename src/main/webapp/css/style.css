@@ -1,13 +1,16 @@
-nav .navbar-brand {
+nav .navbar-brand, .nav-link {
+	font-family: 'Montserrat Alternates', sans-serif;
 	font-weight: bold;
 }
 
 h1 {
+	font-family: 'Montserrat Alternates', sans-serif;
 	text-align: center;
 	background-color: lightgray;
 }
 
 h2 {
+	font-family: 'Montserrat Alternates', sans-serif;
 	text-align: center;
 	background-color: aliceblue;
 }

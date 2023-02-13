@@ -51,6 +51,8 @@ public class ServletLogin extends HttpServlet {
 		ConnexionFormMusicien form = new ConnexionFormMusicien(musicienDao);
 		Musicien musicien = form.connexionMusicien(request);
 		
+		HttpSession session = request.getSession();
+		
 		CookieHelper cookieHelper = new CookieHelper();
 		Cookie cookie = cookieHelper.setAuthCookie();
 				
@@ -64,15 +66,9 @@ public class ServletLogin extends HttpServlet {
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		
 		if (form.getErreurs().isEmpty()) {
-			HttpSession session = request.getSession();
-			session.getAttribute(ATT_SESSION_MUSICIEN);
-			
-			System.out.println(musicien.getId());
-			
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
 			this.getServletContext().getRequestDispatcher(VUE_PROFIL).forward(request, response);
 		} else {
-			HttpSession session = request.getSession();
 			session.setAttribute(ATT_SESSION_MUSICIEN, null);
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		}

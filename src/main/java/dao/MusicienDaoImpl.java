@@ -42,14 +42,14 @@ public class MusicienDaoImpl implements MusicienDao {
 			preparedStatement.setString(9, musicien.getEmail());
 			preparedStatement.setString(10, musicien.getInstrument());
 			
-			preparedStatement.executeUpdate();			
+			preparedStatement.executeUpdate();
 			connexion.commit();
 			
-			ResultSet idKey = preparedStatement.getGeneratedKeys();
-			if (idKey.next()) {
-				musicien.setId(idKey.getInt(1));
-				System.out.println(idKey);
-			}
+//			ResultSet idKey = preparedStatement.getGeneratedKeys();
+//			if (idKey.next()) {
+//				musicien.setId(idKey.getInt(1));
+//				System.out.println(idKey);
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -137,6 +137,7 @@ public class MusicienDaoImpl implements MusicienDao {
 		return musiciens;
 	}
 	
+	@Override
 	public Musicien trouverID(int id) {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;

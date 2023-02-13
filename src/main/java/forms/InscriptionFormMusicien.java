@@ -75,55 +75,110 @@ public final class InscriptionFormMusicien {
 		Musicien musicien = new Musicien();
 		
 		try {
+			traiterNom(nom, musicien);
+			traiterPrenom(prenom, musicien);
+			traiterPassword(password, confirmation, musicien);
+			//TODO
+			musicien.setNumero(numero);
+			musicien.setRue(rue);
+			musicien.setCodePostal(codePostal);
+			musicien.setVille(ville);		
+			musicien.setTelephone(telephone);
+			
+			traiterMail(email, musicien);
+			//TODO			
+			musicien.setInstrument(instrument);
+			
+			if (erreurs.isEmpty()) {
+				musicienDao.ajouter(musicien);
+            resultat = "Succès de l'inscription";
+	        } else {
+	            resultat = "Échec de l'inscription";
+	        }
+		} catch (Exception e) {
+			resultat = "Échec inscription";
+			e.printStackTrace();
+		}
+		
+//		try {
+//			validationNom(nom);
+//		} catch (Exception e) {
+//			setErreur(CHAMP_NOM, e.getMessage());
+//		}
+//		musicien.setNom(nom);
+		
+//		try {
+//			validationPrenom(prenom);			
+//		} catch (Exception e) {
+//			setErreur(CHAMP_PRENOM, e.getMessage());
+//		}
+//		musicien.setPrenom(prenom);
+		
+//		try {
+//			validationPasswords(password, confirmation);;			
+//		} catch (Exception e) {
+//			setErreur(CHAMP_PASS, e.getMessage());
+//			setErreur(CHAMP_CONF, e.getMessage());
+//		}		
+//		musicien.setPassword(password);
+		
+//		try {
+//			validationEmail(email);
+//		} catch (Exception e) {
+//			setErreur(CHAMP_MAIL, e.getMessage());
+//		}
+//		musicien.setEmail(email);
+				
+//		try {
+//			if (erreurs.isEmpty()) {
+//					musicienDao.ajouter(musicien);
+//	            resultat = "Succès de l'inscription";
+//	        } else {
+//	            resultat = "Échec de l'inscription";
+//	        }
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		return musicien;
+	}
+	
+	private void traiterNom(String nom, Musicien musicien) {
+		try {
 			validationNom(nom);
 		} catch (Exception e) {
 			setErreur(CHAMP_NOM, e.getMessage());
 		}
 		musicien.setNom(nom);
-		
+	}
+	
+	private void traiterPrenom(String prenom, Musicien musicien) {
 		try {
-			validationPrenom(prenom);			
+			validationPrenom(prenom);;
 		} catch (Exception e) {
 			setErreur(CHAMP_PRENOM, e.getMessage());
 		}
 		musicien.setPrenom(prenom);
-		
+	}
+	
+	private void traiterPassword(String password, String confirmation, Musicien musicien) {
 		try {
-			validationPasswords(password, confirmation);			
+			validationPasswords(password, confirmation);
 		} catch (Exception e) {
 			setErreur(CHAMP_PASS, e.getMessage());
 			setErreur(CHAMP_CONF, e.getMessage());
 		}
 		musicien.setPassword(password);
-		
-		musicien.setNumero(numero);
-		musicien.setRue(rue);
-		musicien.setCodePostal(codePostal);
-		musicien.setVille(ville);		
-		musicien.setTelephone(telephone);
-		
+	}
+	
+	private void traiterMail(String mail, Musicien musicien) {
 		try {
-			validationEmail(email);
+			validationEmail(mail);
 		} catch (Exception e) {
 			setErreur(CHAMP_MAIL, e.getMessage());
 		}
-		musicien.setEmail(email);
-		
-		musicien.setInstrument(instrument);
-				
-		try {
-			if (erreurs.isEmpty()) {
-					musicienDao.ajouter(musicien);
-	            resultat = "Succès de l'inscription";
-	        } else {
-	            resultat = "Échec de l'inscription";
-	        }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return musicien;
+		musicien.setEmail(mail);
 	}
 	
 	private void validationNom(String nom) throws Exception {
