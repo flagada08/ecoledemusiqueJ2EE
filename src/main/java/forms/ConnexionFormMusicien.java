@@ -77,6 +77,7 @@ public class ConnexionFormMusicien {
 		if (erreurs.isEmpty() && email != null) {
 			musiciens = (List<Musicien>) musicienDao.lister();
 			musicien = musicienDao.trouver(email);
+			System.out.println(musicien.getPassword());
             resultat = "Succès de la connexion";
         } else {
             resultat = "Échec de la connexion";
