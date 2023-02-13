@@ -66,7 +66,7 @@ public class MusicienDaoImpl implements MusicienDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = connexion.prepareStatement(
-					"SELECT id_musicien, name, firstname, password, numero, rue, code_postal, ville, telephone, email, instrument FROM musicien WHERE email = ?;"
+					"SELECT * FROM musicien WHERE email = ?;"
 					);
 			preparedStatement.setString(1, mail);
 			resultat = preparedStatement.executeQuery();

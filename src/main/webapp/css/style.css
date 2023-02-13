@@ -7,6 +7,29 @@ h1 {
 	background-color: lightgray;
 }
 
+h2 {
+	text-align: center;
+	background-color: aliceblue;
+}
+
+form {
+	text-align: center;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+}
+
+.form-row {
+	display: flex;
+	justify-content: center;
+}
+
+section, ul {
+	text-align: center;
+}
+
 .requis {
 	color: red;
 }

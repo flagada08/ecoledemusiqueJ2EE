@@ -70,7 +70,6 @@ public class ConnexionFormMusicien {
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
 		musicien.setPassword(password);
-		System.out.println(password);
 		
 		List<Musicien> musiciens = musicienDao.lister();
 		request.setAttribute("musiciens", musiciens);

@@ -1,15 +1,11 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import beans.Musicien;
 import dao.DaoFactory;
@@ -57,10 +53,7 @@ public class ServletFormMusicien extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		
-		if (form.getErreurs().isEmpty()) {
-			
-				HttpSession session = request.getSession();
-			
+		if (form.getErreurs().isEmpty()) {			
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		} else {
 			this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);
