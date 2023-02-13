@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Musicien;
+import dao.DaoFactory;
+import dao.MusicienDao;
 import forms.ConnexionFormMusicien;
 import utils.CookieHelper;
 
@@ -20,14 +22,21 @@ import utils.CookieHelper;
 @WebServlet("/login")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MusicienDao musicienDao;
+	
+	@Override
+	public void init() throws ServletException {
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		this.musicienDao = daoFactory.getMusicienDao();
+	}
 	
 	public static final String VUE_LOGIN = "/WEB-INF/views/login.jsp";
-	public static final String URL_REDIRECTION = "http://localhost:8080/ecoledemusique/index";
+	public static final String VUE_PROFIL = "/restrictions/profilMusicien.jsp";
 	
 	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
-    
+        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -39,15 +48,10 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnexionFormMusicien form = new ConnexionFormMusicien();	
+		ConnexionFormMusicien form = new ConnexionFormMusicien(musicienDao);
 		Musicien musicien = form.connexionMusicien(request);
 		
-		HttpSession session = request.getSession();
-		
-		String mail = request.getParameter("email_connexion");
-		String password = request.getParameter("password_connexion");
-		
-		CookieHelper cookieHelper = new CookieHelper();		
+		CookieHelper cookieHelper = new CookieHelper();
 		Cookie cookie = cookieHelper.setAuthCookie();
 				
 		if (request.getParameter("keep_connexion") != null) {
@@ -60,9 +64,15 @@ public class ServletLogin extends HttpServlet {
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		
 		if (form.getErreurs().isEmpty()) {
+			HttpSession session = request.getSession();
+			session.getAttribute(ATT_SESSION_MUSICIEN);
+			
+			System.out.println(musicien.getId());
+			
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
-			response.sendRedirect(URL_REDIRECTION);
+			this.getServletContext().getRequestDispatcher(VUE_PROFIL).forward(request, response);
 		} else {
+			HttpSession session = request.getSession();
 			session.setAttribute(ATT_SESSION_MUSICIEN, null);
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		}

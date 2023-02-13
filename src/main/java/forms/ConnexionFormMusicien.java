@@ -1,11 +1,13 @@
 package forms;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import beans.Musicien;
+import dao.MusicienDao;
 
 /**
  * @author B450
@@ -17,6 +19,12 @@ public class ConnexionFormMusicien {
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
+	
+	private MusicienDao musicienDao;
+	
+	public ConnexionFormMusicien(MusicienDao musicienDao) {
+		this.musicienDao = musicienDao;
+	}
 	/**
 	 * @return the resultat
 	 */
@@ -43,11 +51,12 @@ public class ConnexionFormMusicien {
 	}
 	
 	public Musicien connexionMusicien(HttpServletRequest request) {
-		Musicien musicien = new Musicien();
-		
+		// Récupération des champs du formulaire
 		String email = getValeurChamp(request, CHAMP_EMAIL);
 		String password = getValeurChamp(request, CHAMP_PASS);
 		
+		Musicien musicien = new Musicien();
+				
 		try {
 			validationEmail(email);
 		} catch (Exception e) {
@@ -63,7 +72,12 @@ public class ConnexionFormMusicien {
 		musicien.setPassword(password);
 		System.out.println(password);
 		
-		if (erreurs.isEmpty()) {
+		List<Musicien> musiciens = musicienDao.lister();
+		request.setAttribute("musiciens", musiciens);
+		
+		if (erreurs.isEmpty() && email != null) {
+			musiciens = (List<Musicien>) musicienDao.lister();
+			musicien = musicienDao.trouver(email);
             resultat = "Succès de la connexion";
         } else {
             resultat = "Échec de la connexion";

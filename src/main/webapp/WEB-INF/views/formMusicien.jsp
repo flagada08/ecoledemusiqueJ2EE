@@ -42,8 +42,8 @@
 </div>
 <div class="form-row">
 	<div class="form-group col-md-2">
-     <label for="code-postal">Code Postal</label>
-     <input class="form-control" type="text" id="code-postal" name="code-postal_musicien" placeholder="12345" value="<c:out value="${adresse.codePostal}"/>"/>
+     <label for="code_postal">Code Postal</label>
+     <input class="form-control" type="text" id="code_postal" name="code_postal_musicien" placeholder="12345" value="<c:out value="${adresse.codePostal}"/>"/>
      
  </div>
  <div class="form-group col-md-4">

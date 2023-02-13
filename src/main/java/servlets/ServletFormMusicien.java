@@ -1,14 +1,19 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.Musicien;
+import dao.DaoFactory;
+import dao.MusicienDao;
 import forms.InscriptionFormMusicien;
 
 /**
@@ -17,12 +22,18 @@ import forms.InscriptionFormMusicien;
 @WebServlet("/form-musicien")
 public class ServletFormMusicien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MusicienDao musicienDao;
+	
+	public void init() throws ServletException {
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		this.musicienDao = daoFactory.getMusicienDao();
+	}
 	
 	public static final String VUE_FORM = "/WEB-INF/views/formMusicien.jsp";
 	public static final String VUE_LOGIN ="/WEB-INF/views/login.jsp";
     
 	public static final String ATT_FORM = "form";
-    public static final String ATT_MUSICIEN  = "musicien";
+    public static final String ATT_MUSICIEN = "musicien";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
        
 	/**
@@ -37,7 +48,7 @@ public class ServletFormMusicien extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Objet formulaire
-		InscriptionFormMusicien form = new InscriptionFormMusicien();
+		InscriptionFormMusicien form = new InscriptionFormMusicien(musicienDao);
 		
 		// Appel à la méthode de validation de la requête qui récupère le bean
 		Musicien musicien = form.inscriptionMusicien(request);
@@ -47,6 +58,9 @@ public class ServletFormMusicien extends HttpServlet {
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		
 		if (form.getErreurs().isEmpty()) {
+			
+				HttpSession session = request.getSession();
+			
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
 		} else {
 			this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);

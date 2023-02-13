@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import beans.Adresse;
 import beans.Musicien;
+import dao.MusicienDao;
 
 /**
  * @author User-05
@@ -19,7 +19,7 @@ public final class InscriptionFormMusicien {
     public static final String CHAMP_CONF = "confirmation_password_musicien";
     public static final String CHAMP_NUM = "numero_musicien";
     public static final String CHAMP_RUE = "rue_musicien";
-    public static final String CHAMP_CPL = "code-postal_musicien";
+    public static final String CHAMP_CPL = "code_postal_musicien";
     public static final String CHAMP_VILLE = "ville_musicien";
     public static final String CHAMP_TEL = "telephone_musicien";
     public static final String CHAMP_MAIL = "mail_musicien";
@@ -27,6 +27,12 @@ public final class InscriptionFormMusicien {
     
     private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
+	
+	private MusicienDao musicienDao;
+	
+	public InscriptionFormMusicien(MusicienDao musicienDao) {
+		this.musicienDao = musicienDao;
+	}
 	/**
 	 * @return the resultat
 	 */
@@ -66,7 +72,6 @@ public final class InscriptionFormMusicien {
 		String email = getValeurChamp(request, CHAMP_MAIL);
 		String instrument = getValeurChamp(request, CHAMP_INSTRU);
 		
-		Adresse adresse = new Adresse();
 		Musicien musicien = new Musicien();
 		
 		try {
@@ -91,6 +96,12 @@ public final class InscriptionFormMusicien {
 		}
 		musicien.setPassword(password);
 		
+		musicien.setNumero(numero);
+		musicien.setRue(rue);
+		musicien.setCodePostal(codePostal);
+		musicien.setVille(ville);		
+		musicien.setTelephone(telephone);
+		
 		try {
 			validationEmail(email);
 		} catch (Exception e) {
@@ -98,14 +109,19 @@ public final class InscriptionFormMusicien {
 		}
 		musicien.setEmail(email);
 		
-		musicien.setTelephone(telephone);
 		musicien.setInstrument(instrument);
-		
-		if (erreurs.isEmpty()) {
-            resultat = "Succès de l'inscription";
-        } else {
-            resultat = "Échec de l'inscription";
-        }
+				
+		try {
+			if (erreurs.isEmpty()) {
+					musicienDao.ajouter(musicien);
+	            resultat = "Succès de l'inscription";
+	        } else {
+	            resultat = "Échec de l'inscription";
+	        }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return musicien;
 	}
@@ -145,7 +161,9 @@ public final class InscriptionFormMusicien {
 			if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
 			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
 				throw new Exception("Adresse mail invalide");
-			} 
+			} else if (musicienDao.trouver(email) == null) {
+				throw new Exception("Cette email est déjà utilisé");
+			}
 		} else {
 			throw new Exception("Adresse mail obligatoire");
 		}

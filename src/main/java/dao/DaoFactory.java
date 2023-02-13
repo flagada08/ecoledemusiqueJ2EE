@@ -14,7 +14,6 @@ public class DaoFactory {
 	 * @param password
 	 */
 	public DaoFactory(String url, String mail, String password) {
-		super();
 		this.url = url;
 		this.mail = mail;
 		this.password = password;
@@ -26,12 +25,15 @@ public class DaoFactory {
 			e.printStackTrace();
 		}
 		
-		DaoFactory instance = new DaoFactory("jdbc:mysql://localhost:3306/ecoledemusique", "root", "");
-		
+		DaoFactory instance = new DaoFactory(
+				"jdbc:mysql://localhost:3306/ecoledemusique", "root", ""
+				);		
 		return instance;
 	}
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, mail, password);		
+		Connection connexion = DriverManager.getConnection(url, mail, password);
+		connexion.setAutoCommit(false);
+		return connexion;
 	}
 	public MusicienDao getMusicienDao() {
 		return new MusicienDaoImpl(this);

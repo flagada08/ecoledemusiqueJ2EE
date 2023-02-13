@@ -5,20 +5,27 @@ package beans;
  *
  */
 public class Musicien {
-	private Long id;
+	private int id;
 	private String nom;
 	private String prenom;
 	private String password;
-	private Long idAdresse;
+	private String numero;
+	private String rue;
+	private String codePostal;
+	private String ville;
 	private String telephone;
 	private String email;
 	private String instrument;
 	
 	public Musicien() {
+		this.setId(id);
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setPassword(password);
-		this.setIdAdresse(idAdresse);
+		this.setNumero(numero);
+		this.setRue(rue);
+		this.setCodePostal(codePostal);
+		this.setVille(ville);
 		this.setTelephone(telephone);
 		this.setEmail(email);
 		this.setInstrument(instrument);
@@ -27,15 +34,15 @@ public class Musicien {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param idMusicien the id to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(int idMusicien) {
+		this.id = idMusicien;
 	}
 
 	/**
@@ -81,17 +88,59 @@ public class Musicien {
 	}
 
 	/**
-	 * @return the idAdresse
+	 * @return the numero
 	 */
-	public Long getIdAdresse() {
-		return idAdresse;
+	public String getNumero() {
+		return numero;
 	}
 
 	/**
-	 * @param idAdresse the idAdresse to set
+	 * @param numero the numero to set
 	 */
-	public void setIdAdresse(Long idAdresse) {
-		this.idAdresse = idAdresse;
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	/**
+	 * @return the rue
+	 */
+	public String getRue() {
+		return rue;
+	}
+
+	/**
+	 * @param rue the rue to set
+	 */
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	/**
+	 * @return the codePostal
+	 */
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	/**
+	 * @param codePostal the codePostal to set
+	 */
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	/**
+	 * @return the ville
+	 */
+	public String getVille() {
+		return ville;
+	}
+
+	/**
+	 * @param ville the ville to set
+	 */
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 	/**
@@ -135,4 +184,12 @@ public class Musicien {
 	public void setInstrument(String instrument) {
 		this.instrument = instrument;
 	}
+
+	@Override
+	public String toString() {
+		return "Musicien [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", password=" + password + ", numero="
+				+ numero + ", rue=" + rue + ", codePostal=" + codePostal + ", ville=" + ville + ", telephone="
+				+ telephone + ", email=" + email + ", instrument=" + instrument + "]";
+	}
+
 }

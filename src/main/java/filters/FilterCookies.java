@@ -52,6 +52,13 @@ public class FilterCookies extends HttpFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         
+//        /* Non-filtrage des ressources statiques */
+//        String chemin = req.getRequestURI().substring( req.getContextPath().length() );
+//        if ( chemin.startsWith( "/css" ) ) {
+//            chain.doFilter( request, response );
+//            return;
+//        }
+        
         // Récupération des cookies
         Cookie[] cookies = req.getCookies();
         
