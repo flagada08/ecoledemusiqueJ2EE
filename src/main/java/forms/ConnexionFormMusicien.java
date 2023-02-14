@@ -1,7 +1,6 @@
 package forms;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +18,11 @@ public class ConnexionFormMusicien {
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
-	
+	private Musicien musicien = new Musicien();
 	private MusicienDao musicienDao;
 	
 	public ConnexionFormMusicien(MusicienDao musicienDao) {
-		this.musicienDao = musicienDao;
+		this.setMusicienDao(musicienDao);
 	}
 	/**
 	 * @return the resultat
@@ -50,12 +49,22 @@ public class ConnexionFormMusicien {
 		this.erreurs = erreurs;
 	}
 	
+	/**
+	 * @return the musicienDao
+	 */
+	public MusicienDao getMusicienDao() {
+		return musicienDao;
+	}
+	/**
+	 * @param musicienDao the musicienDao to set
+	 */
+	public void setMusicienDao(MusicienDao musicienDao) {
+		this.musicienDao = musicienDao;
+	}
 	public Musicien connexionMusicien(HttpServletRequest request) {
 		// Récupération des champs du formulaire
 		String email = getValeurChamp(request, CHAMP_EMAIL);
 		String password = getValeurChamp(request, CHAMP_PASS);
-		
-		Musicien musicien = new Musicien();
 				
 		try {
 			validationEmail(email);
@@ -69,15 +78,10 @@ public class ConnexionFormMusicien {
 		} catch (Exception e) {
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
-		musicien.setPassword(password);
+		musicien.setPassword(password);		
 		
-		List<Musicien> musiciens = musicienDao.lister();
-		request.setAttribute("musiciens", musiciens);
-		
-		if (erreurs.isEmpty() && email != null) {
-			musiciens = (List<Musicien>) musicienDao.lister();
+		if (erreurs.isEmpty()) {
 			musicien = musicienDao.trouver(email);
-			System.out.println(musicien.getPassword());
             resultat = "Succès de la connexion";
         } else {
             resultat = "Échec de la connexion";

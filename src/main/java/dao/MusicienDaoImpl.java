@@ -107,8 +107,7 @@ public class MusicienDaoImpl implements MusicienDao {
 		List<Musicien> musiciens = new ArrayList<Musicien>();
 		Connection connexion = null;
 		Statement statement = null;
-		ResultSet resultat = null;
-		Musicien musicien = null;
+		ResultSet resultat = null;		
 		
 		try {
 			connexion = daoFactory.getConnection();
@@ -116,44 +115,8 @@ public class MusicienDaoImpl implements MusicienDao {
 			resultat = statement.executeQuery("SELECT * FROM musicien ORDER BY id_musicien DESC;");
 			
 			while(resultat.next()) {
-				int idMusicien = resultat.getInt("id_musicien");
-				String name = resultat.getString("name");
-				String firstname = resultat.getString("firstname");
-				String instrument = resultat.getString("instrument");
+				Musicien musicien = new Musicien();
 				
-				musicien = new Musicien();
-								
-				musicien.setId(idMusicien);
-				musicien.setNom(name);
-				musicien.setPrenom(firstname);
-				musicien.setInstrument(instrument);
-				
-				musiciens.add(musicien);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return musiciens;
-	}
-	
-	@Override
-	public Musicien trouverID(int id) {
-        Connection connexion = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultat = null;
-        
-		Musicien musicien = new Musicien();
-        
-        try {
-			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement(
-					"SELECT id_musicien, name, firstname, password, numero, rue, code_postal, ville, telephone, email, instrument FROM musicien WHERE id_musicien = ?;"
-					);
-			preparedStatement.setInt(1, id);
-			resultat = preparedStatement.executeQuery();
-			
-			if (resultat.next()) {
 				int idMusicien = resultat.getInt("id_musicien");
 				String nomMusicien = resultat.getString("name");
 				String prenomMusicien = resultat.getString("firstname");
@@ -177,12 +140,41 @@ public class MusicienDaoImpl implements MusicienDao {
 				musicien.setTelephone(telephoneMusicien);
 				musicien.setEmail(emailMusicien);
 				musicien.setInstrument(instrumentMusicien);
+				
+				musiciens.add(musicien);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return musiciens;
+	}
+
+	@Override
+	public boolean valider(String mail, String password) {
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultat = null;
         
-		return musicien;
+        try {
+        	connexion = daoFactory.getConnection();
+			preparedStatement = connexion.prepareStatement(
+					"SELECT * FROM musicien WHERE password = ? AND email = ?;"
+					);
+			
+			preparedStatement.setString(1, password);
+			preparedStatement.setString(2, mail);
+			
+			resultat = preparedStatement.executeQuery();
+			
+			if (resultat.next()) {
+				return true;
+			}
+        } catch (Exception e){
+        	e.printStackTrace();
+        } finally {
+        	daoFactory.close(connexion);
+        }        
+		return false;
 	}
 }

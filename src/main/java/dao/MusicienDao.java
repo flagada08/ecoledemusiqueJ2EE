@@ -7,6 +7,6 @@ import beans.Musicien;
 public interface MusicienDao {
 	void ajouter(Musicien musicien) throws Exception;
 	Musicien trouver(String mail);
-	Musicien trouverID(int id);
+	boolean valider(String musicien, String password);
 	List<Musicien> lister();
 }

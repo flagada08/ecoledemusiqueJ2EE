@@ -73,5 +73,12 @@ public class DaoFactory {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public void close(Connection connexion) {
+		try {
+			connexion.close();
+		} catch (Exception e) {
+			
+		}
 	}	
 }
