@@ -56,7 +56,7 @@ public class MusicienDaoImpl implements MusicienDao {
 	}
 	
 	@Override
-	public Musicien trouver(String mail) {
+	public Musicien trouver(String mail) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultat = null;
@@ -97,7 +97,7 @@ public class MusicienDaoImpl implements MusicienDao {
 				musicien.setInstrument(instrumentMusicien);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException(e);
 		}
 		return musicien;
 	}
@@ -151,7 +151,7 @@ public class MusicienDaoImpl implements MusicienDao {
 	}
 
 	@Override
-	public boolean valider(String mail, String password) {
+	public boolean validerMailPassword(String mail, String password) {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultat = null;

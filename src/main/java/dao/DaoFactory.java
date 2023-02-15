@@ -78,7 +78,7 @@ public class DaoFactory {
 		try {
 			connexion.close();
 		} catch (Exception e) {
-			
+			e.getMessage();
 		}
 	}	
 }

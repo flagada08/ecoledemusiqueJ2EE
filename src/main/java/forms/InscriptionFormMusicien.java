@@ -91,7 +91,7 @@ public final class InscriptionFormMusicien {
 			
 			if (erreurs.isEmpty()) {
 				musicienDao.ajouter(musicien);
-            resultat = "Succès de l'inscription";
+				resultat = "Succès de l'inscription";
 	        } else {
 	            resultat = "Échec de l'inscription";
 	        }
@@ -174,8 +174,9 @@ public final class InscriptionFormMusicien {
 			if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
 			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
 				throw new Exception("Adresse mail invalide");
-			} else if (musicienDao.trouver(email) == null) {
-				throw new Exception("Cette email est déjà utilisé");
+			} else if (musicienDao.trouver(email) != null) {
+				System.out.println(email);
+				throw new FormValidationException("Cet email est déjà utilisé");
 			}
 		} else {
 			throw new Exception("Adresse mail obligatoire");

@@ -107,7 +107,7 @@ public class ConnexionFormMusicien {
 		} else {
 			throw new Exception("Mot de passe requis");
 		}
-		if (musicienDao.valider(email, password) == false) {
+		if (musicienDao.validerMailPassword(email, password) == false) {
 			throw new Exception("L'adresse mail et le mot de passe ne correspondent pas");
 		}
 	}
