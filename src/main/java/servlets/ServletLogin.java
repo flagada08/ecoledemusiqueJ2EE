@@ -31,7 +31,7 @@ public class ServletLogin extends HttpServlet {
 	}
 	
 	public static final String VUE_LOGIN = "/WEB-INF/views/login.jsp";
-	public static final String VUE_PROFIL = "/restrictions/profilMusicien.jsp";
+	public static final String VUE_PROFIL = "http://localhost:8080/ecoledemusique/profil-musicien";
 		
 	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
@@ -53,12 +53,6 @@ public class ServletLogin extends HttpServlet {
 		
 		CookieHelper cookieHelper = new CookieHelper();
 		Cookie cookie = cookieHelper.setAuthCookie();
-				
-		if (request.getParameter("keep_connexion") != null) {
-			response.addCookie(cookie);
-		} else {
-			cookieHelper.destroyCookie(cookie);
-		}
 		
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_MUSICIEN, musicien);
@@ -66,9 +60,16 @@ public class ServletLogin extends HttpServlet {
 		if (form.getErreurs().isEmpty()) {
 			HttpSession session = request.getSession();
 			session.setAttribute(ATT_SESSION_MUSICIEN, musicien);
+			if (request.getParameter("keep_connexion") != null) {
+				response.addCookie(cookie);
+			} else {
+				cookieHelper.destroyCookie(cookie);
+			}
+			response.sendRedirect(VUE_PROFIL);
 		} else {
 			request.setAttribute(ATT_SESSION_MUSICIEN, null);
+			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);
+
 		}
-		this.getServletContext().getRequestDispatcher(VUE_PROFIL).forward(request, response);
 	}
 }

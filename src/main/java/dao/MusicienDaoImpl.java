@@ -174,7 +174,7 @@ public class MusicienDaoImpl implements MusicienDao {
         	e.printStackTrace();
         } finally {
         	daoFactory.close(connexion);
-        }        
+        }
 		return false;
 	}
 }

@@ -19,12 +19,12 @@
 <div class="form-row">
     <div class="form-group col-md-3">
 	    <label for="password"><Strong>Mot de passe</Strong></label>
-	    <input  class="form-control" type="password" id="password" name="password_musicien" placeholder="Mot de passe">
+	    <input  class="form-control" type="password" id="password" name="password_musicien" placeholder="Mot de passe" autocomplete="off">
 	    <span class="erreur">${form.erreurs['password_musicien']}</span>
   	</div>
   	<div class="form-group col-md-3">
 	    <label for="confirmation"><Strong>Confirmer le mot de passe</Strong></label>
-	    <input  class="form-control" type="password" id="confirmation" name="confirmation_password_musicien" placeholder="Mot de passe">
+	    <input  class="form-control" type="password" id="confirmation" name="confirmation_password_musicien" placeholder="confirmation mot de passe" autocomplete="off">
 	    <span class="erreur">${form.erreurs['confirmation_password_musicien']}</span>
   	</div>
 </div>

@@ -71,14 +71,12 @@ public class ConnexionFormMusicien {
 		} catch (Exception e) {
 			setErreur(CHAMP_EMAIL, e.getMessage());
 		}
-		musicien.setEmail(email);
 		
 		try {
-			validationPassword(password);			
-		} catch (Exception e) {
+			validationEmailPassword(email, password);
+		} catch (Exception e){
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
-		musicien.setPassword(password);		
 		
 		if (erreurs.isEmpty()) {
 			musicien = musicienDao.trouver(email);
@@ -101,13 +99,16 @@ public class ConnexionFormMusicien {
 		}
 	}
 	
-	private void validationPassword(String password) throws Exception {
+	private void validationEmailPassword(String email, String password) throws Exception {
 		if (password != null) {
 			if (password.length() < 5) {
 				throw new Exception("Le mot de passe doit être composé de 5 caractères minimum");
 			}
 		} else {
 			throw new Exception("Mot de passe requis");
+		}
+		if (musicienDao.valider(email, password) == false) {
+			throw new Exception("L'adresse mail et le mot de passe ne correspondent pas");
 		}
 	}
 	

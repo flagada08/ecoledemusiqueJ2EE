@@ -23,11 +23,16 @@
 <h1><i class="fa-brands fa-java"></i> École de musique </h1>
     <c:if test="${!empty sessionScope.sessionMusicien}">
         <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionMusicien.email}</p>
-	    <h2>Liste des derniers musiciens enregistrés</h2>
-	    <ul>
-			<c:forEach var="musicien" items="${ musiciens }">
-				<li><c:out value="${ musicien.nom }"/> <c:out value="${ musicien.prenom }"/> | instrument joué : <c:out value="${ musicien.instrument }" /></li>
-			</c:forEach>    
-	    </ul>
+	    <div class="card text-white bg-secondary mb-3" style="max-width: 38rem;">
+		  <div class="card-header">Accueil</div>
+		  <div class="card-body">
+		    <h2 class="card-title">Liste des derniers musiciens enregistrés</h2>
+		    <ul class="list-group list-group-flush">
+				<c:forEach var="musicien" items="${ musiciens }">
+					<li class="list-group-item bg-secondary"><c:out value="${ musicien.nom }"/> <c:out value="${ musicien.prenom }"/> | instrument joué : <c:out value="${ musicien.instrument }" /></li>
+				</c:forEach>    
+	    	</ul>
+		  </div>
+		</div>
     </c:if>
 <%@ include file="/WEB-INF/views/footer.jsp" %>

@@ -98,49 +98,7 @@ public final class InscriptionFormMusicien {
 		} catch (Exception e) {
 			resultat = "Échec inscription";
 			e.printStackTrace();
-		}
-		
-//		try {
-//			validationNom(nom);
-//		} catch (Exception e) {
-//			setErreur(CHAMP_NOM, e.getMessage());
-//		}
-//		musicien.setNom(nom);
-		
-//		try {
-//			validationPrenom(prenom);			
-//		} catch (Exception e) {
-//			setErreur(CHAMP_PRENOM, e.getMessage());
-//		}
-//		musicien.setPrenom(prenom);
-		
-//		try {
-//			validationPasswords(password, confirmation);;			
-//		} catch (Exception e) {
-//			setErreur(CHAMP_PASS, e.getMessage());
-//			setErreur(CHAMP_CONF, e.getMessage());
-//		}		
-//		musicien.setPassword(password);
-		
-//		try {
-//			validationEmail(email);
-//		} catch (Exception e) {
-//			setErreur(CHAMP_MAIL, e.getMessage());
-//		}
-//		musicien.setEmail(email);
-				
-//		try {
-//			if (erreurs.isEmpty()) {
-//					musicienDao.ajouter(musicien);
-//	            resultat = "Succès de l'inscription";
-//	        } else {
-//	            resultat = "Échec de l'inscription";
-//	        }
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+		}		
 		return musicien;
 	}
 	
