@@ -9,7 +9,7 @@ import javax.servlet.http.Cookie;
 public class CookieHelper {
 	public static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 	
-	public Cookie generateCookie(String nom, String valeur, int maxAge ) {
+	private Cookie generateCookie(String nom, String valeur, int maxAge ) {
 		Cookie cookie = new Cookie(nom, valeur);
 		cookie.setMaxAge(maxAge);
 		return cookie;
