@@ -18,20 +18,20 @@ import forms.InscriptionFormMusicien;
 @WebServlet("/form-musicien")
 public class ServletFormMusicien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MusicienDao musicienDao;
-	
-	public void init() throws ServletException {
-		DaoFactory daoFactory = DaoFactory.getInstance();
-		this.musicienDao = daoFactory.getMusicienDao();
-	}
 	
 	public static final String VUE_FORM = "/WEB-INF/views/formMusicien.jsp";
-	public static final String VUE_LOGIN ="/WEB-INF/views/login.jsp";
-    
+	public static final String VUE_LOGIN ="/WEB-INF/views/login.jsp";    
 	public static final String ATT_FORM = "form";
     public static final String ATT_MUSICIEN = "musicien";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
        
+    private MusicienDao musicienDao;
+    
+    public void init() throws ServletException {
+    	DaoFactory daoFactory = DaoFactory.getInstance();
+    	this.musicienDao = daoFactory.getMusicienDao();
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -49,7 +49,7 @@ public class ServletFormMusicien extends HttpServlet {
 		// Appel à la méthode de validation de la requête qui récupère le bean
 		Musicien musicien = form.inscriptionMusicien(request);
 				
-		// Setter dans l'objet request le formulaire et le bean
+		// Mettre dans l'objet request, le formulaire et le bean
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_MUSICIEN, musicien);
 		

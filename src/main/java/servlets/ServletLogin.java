@@ -22,21 +22,21 @@ import utils.CookieHelper;
 @WebServlet("/login")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MusicienDao musicienDao;
-	
-	@Override
-	public void init() throws ServletException {
-		DaoFactory daoFactory = DaoFactory.getInstance();
-		this.musicienDao = daoFactory.getMusicienDao();
-	}
 	
 	public static final String VUE_LOGIN = "/WEB-INF/views/login.jsp";
-	public static final String VUE_PROFIL = "http://localhost:8080/ecoledemusique/profil-musicien";
-		
+	public static final String VUE_PROFIL = "/restrictions/profilMusicien.jsp";
 	public static final String ATT_FORM = "form";
 	public static final String ATT_MUSICIEN = "musicien";
     public static final String ATT_SESSION_MUSICIEN = "sessionMusicien";
         
+    private MusicienDao musicienDao;
+    
+    @Override
+    public void init() throws ServletException {
+    	DaoFactory daoFactory = DaoFactory.getInstance();
+    	this.musicienDao = daoFactory.getMusicienDao();
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -65,7 +65,7 @@ public class ServletLogin extends HttpServlet {
 			} else {
 				cookieHelper.destroyCookie(cookie);
 			}
-			response.sendRedirect(VUE_PROFIL);
+			this.getServletContext().getRequestDispatcher(VUE_PROFIL).forward(request, response);
 		} else {
 			request.setAttribute(ATT_SESSION_MUSICIEN, null);
 			this.getServletContext().getRequestDispatcher(VUE_LOGIN).forward(request, response);

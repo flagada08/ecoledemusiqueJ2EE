@@ -21,9 +21,10 @@ public class MusicienDaoImpl implements MusicienDao {
 	}
 
 	@Override
-	public void ajouter(Musicien musicien) throws Exception {
+	public void ajouter(Musicien musicien) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet generatedKeys = null;
 		
 		try {
 			connexion = daoFactory.getConnection();
@@ -42,16 +43,20 @@ public class MusicienDaoImpl implements MusicienDao {
 			preparedStatement.setString(9, musicien.getEmail());
 			preparedStatement.setString(10, musicien.getInstrument());
 			
-			preparedStatement.executeUpdate();
+			int statut = preparedStatement.executeUpdate();
 			connexion.commit();
 			
-//			ResultSet idKey = preparedStatement.getGeneratedKeys();
-//			if (idKey.next()) {
-//				musicien.setId(idKey.getInt(1));
-//				System.out.println(idKey);
-//			}
+			if (statut == 0) {
+				throw new DAOException( "Échec de la création : aucune ligne ajoutée dans la table" );
+			}			
+			generatedKeys = preparedStatement.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				musicien.setId(generatedKeys.getInt(1));
+			} else {
+				throw new DAOException( "Échec de la création en base : aucun ID auto-généré retourné" );
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException(e);
 		}
 	}
 	
@@ -144,7 +149,7 @@ public class MusicienDaoImpl implements MusicienDao {
 				musiciens.add(musicien);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException(e);
 		}
 		
 		return musiciens;
@@ -171,7 +176,7 @@ public class MusicienDaoImpl implements MusicienDao {
 				return true;
 			}
         } catch (Exception e){
-        	e.printStackTrace();
+        	throw new DAOException(e);
         } finally {
         	daoFactory.close(connexion);
         }

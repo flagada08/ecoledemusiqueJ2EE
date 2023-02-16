@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import beans.Musicien;
+import dao.DAOException;
 import dao.MusicienDao;
 
 /**
@@ -95,17 +96,18 @@ public final class InscriptionFormMusicien {
 	        } else {
 	            resultat = "Échec de l'inscription";
 	        }
-		} catch (Exception e) {
-			resultat = "Échec inscription";
+		} catch (DAOException e) {
+			resultat = "Échec de l'inscription";
+			setErreur(CHAMP_MAIL, "Adresse email déjà utilisée, merci d'en choisir une autre");
 			e.printStackTrace();
-		}		
+		}
 		return musicien;
 	}
 	
 	private void traiterNom(String nom, Musicien musicien) {
 		try {
 			validationNom(nom);
-		} catch (Exception e) {
+		} catch (FormValidationException e) {
 			setErreur(CHAMP_NOM, e.getMessage());
 		}
 		musicien.setNom(nom);
@@ -114,7 +116,7 @@ public final class InscriptionFormMusicien {
 	private void traiterPrenom(String prenom, Musicien musicien) {
 		try {
 			validationPrenom(prenom);;
-		} catch (Exception e) {
+		} catch (FormValidationException e) {
 			setErreur(CHAMP_PRENOM, e.getMessage());
 		}
 		musicien.setPrenom(prenom);
@@ -123,7 +125,7 @@ public final class InscriptionFormMusicien {
 	private void traiterPassword(String password, String confirmation, Musicien musicien) {
 		try {
 			validationPasswords(password, confirmation);
-		} catch (Exception e) {
+		} catch (FormValidationException e) {
 			setErreur(CHAMP_PASS, e.getMessage());
 			setErreur(CHAMP_CONF, e.getMessage());
 		}
@@ -133,53 +135,50 @@ public final class InscriptionFormMusicien {
 	private void traiterMail(String mail, Musicien musicien) {
 		try {
 			validationEmail(mail);
-		} catch (Exception e) {
+		} catch (FormValidationException e) {
 			setErreur(CHAMP_MAIL, e.getMessage());
 		}
 		musicien.setEmail(mail);
 	}
 	
-	private void validationNom(String nom) throws Exception {
+	private void validationNom(String nom) throws FormValidationException {
 		if (nom != null) {
 			if (nom.length() < 3) {
-			throw new Exception("Nom obligatoire et doit contenir au moins 3 caractères");
+			throw new FormValidationException("Nom obligatoire et doit contenir au moins 3 caractères");
 			}
 		} else {
-			throw new Exception("Nom requis");
+			throw new FormValidationException("Nom requis");
 		}
 	}
 	
-	private void validationPrenom(String prenom) throws Exception {
+	private void validationPrenom(String prenom) throws FormValidationException {
 		if (prenom != null && prenom.length() < 3) {
-			throw new Exception("Prénom obligatoire et doit contenir au moins 3 caractères");
+			throw new FormValidationException("Prénom obligatoire et doit contenir au moins 3 caractères");
 		} else if (prenom == null) {
-			throw new Exception("Prénom requis");
+			throw new FormValidationException("Prénom requis");
 		}
 	}
 
-	private void validationPasswords(String password, String confirmation) throws Exception {
+	private void validationPasswords(String password, String confirmation) throws FormValidationException {
 		if (password != null && confirmation != null) {
 			if (!password.equals(confirmation)) {
-				throw new Exception("Confirmation du mot de passe différent");
+				throw new FormValidationException("Confirmation du mot de passe différent");
 			} else if (password.length() < 5) {
-				throw new Exception("Le mot de passe doit être composé de 5 caractères minimum");
+				throw new FormValidationException("Le mot de passe doit être composé de 5 caractères minimum");
 			}
 		} else {
-			throw new Exception("Les champs Mot de passe et Confirmer le mot de passe sont obligatoire");
+			throw new FormValidationException("Les champs Mot de passe et Confirmer le mot de passe sont obligatoire");
 		}
 	}
 	
-	private void validationEmail(String email) throws Exception {
+	private void validationEmail(String email) throws FormValidationException {
 		if (email != null) {
 			if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
 			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-				throw new Exception("Adresse mail invalide");
-			} else if (musicienDao.trouver(email) != null) {
-				System.out.println(email);
-				throw new FormValidationException("Cet email est déjà utilisé");
+				throw new FormValidationException("Adresse mail invalide");
 			}
 		} else {
-			throw new Exception("Adresse mail obligatoire");
+			throw new FormValidationException("Adresse mail obligatoire");
 		}
 	}
 	
