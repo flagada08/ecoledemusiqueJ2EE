@@ -1,5 +1,6 @@
 package forms;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import beans.Musicien;
 import dao.DAOException;
 import dao.MusicienDao;
+import utils.PasswordHashing;
 
 /**
  * @author User-05
@@ -97,8 +99,7 @@ public final class InscriptionFormMusicien {
 	            resultat = "Échec de l'inscription";
 	        }
 		} catch (DAOException e) {
-			resultat = "Échec de l'inscription";
-			setErreur(CHAMP_MAIL, "Adresse email déjà utilisée, merci d'en choisir une autre");
+			resultat = "Échec de l'inscription : erreur imprévue";
 			e.printStackTrace();
 		}
 		return musicien;
@@ -129,7 +130,12 @@ public final class InscriptionFormMusicien {
 			setErreur(CHAMP_PASS, e.getMessage());
 			setErreur(CHAMP_CONF, e.getMessage());
 		}
-		musicien.setPassword(password);
+		try {
+			String hashedPassword = PasswordHashing.SecurePassword(password);
+			musicien.setPassword(hashedPassword);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void traiterMail(String mail, Musicien musicien) {
@@ -176,6 +182,9 @@ public final class InscriptionFormMusicien {
 			if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
 			        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
 				throw new FormValidationException("Adresse mail invalide");
+			} 
+			else if (musicienDao.trouver(email) != null) {
+				throw new FormValidationException("Adresse email déjà utilisée, merci d'en choisir une autre");
 			}
 		} else {
 			throw new FormValidationException("Adresse mail obligatoire");

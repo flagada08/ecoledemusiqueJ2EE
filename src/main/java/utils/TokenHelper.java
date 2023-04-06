@@ -7,8 +7,8 @@ import java.security.SecureRandom;
  *
  */
 public class TokenHelper {
-	private final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-	private final char[] ALPHANUMERIC = (ALPHABET + ALPHABET.toUpperCase() + "0123456789").toCharArray();
+	private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+	private static final char[] ALPHANUMERIC = (ALPHABET + ALPHABET.toUpperCase() + "0123456789").toCharArray();
 	
 	public String generateToken(int taille) {
 		StringBuilder resultat = new StringBuilder();

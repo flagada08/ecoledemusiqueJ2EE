@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Musicien;
+import utils.DAOFermeture;
 
 public class MusicienDaoImpl implements MusicienDao {
 	private DaoFactory daoFactory;
@@ -57,6 +58,8 @@ public class MusicienDaoImpl implements MusicienDao {
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		} finally {
+			DAOFermeture.fermeturesSilencieuses( generatedKeys, preparedStatement, connexion );
 		}
 	}
 	
@@ -103,9 +106,11 @@ public class MusicienDaoImpl implements MusicienDao {
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		} finally {
+			DAOFermeture.fermeturesSilencieuses(resultat, preparedStatement, connexion);
 		}
-		return musicien;
-	}
+			return musicien;
+		}
 
 	@Override
 	public List<Musicien> lister() {
