@@ -34,14 +34,14 @@ public class ServletIndex extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("musiciens", musicienDao.lister());
 		request.getRequestDispatcher(VUE).forward(request, response);
-		String pass = "pass";
-		try {
-			System.out.println(PasswordHashing.SecurePassword(pass));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(PasswordHashing.getSalt(pass));
+//		String pass = "pass";
+//		try {
+//			System.out.println(PasswordHashing.SecurePassword(pass));
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(PasswordHashing.getSalt(pass));
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class MusicienDaoImpl implements MusicienDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultat = null;
 		
-		Musicien musicien = new Musicien();
+		Musicien musicien = null;
 		
 		try {
 			connexion = daoFactory.getConnection();
@@ -91,7 +91,9 @@ public class MusicienDaoImpl implements MusicienDao {
 				String telephoneMusicien = resultat.getString("telephone");
 				String emailMusicien = resultat.getString("email");
 				String instrumentMusicien = resultat.getString("instrument");
-
+				
+				musicien = new Musicien();
+				
 				musicien.setId(idMusicien);
 				musicien.setNom(nomMusicien);
 				musicien.setPrenom(prenomMusicien);
@@ -109,8 +111,9 @@ public class MusicienDaoImpl implements MusicienDao {
 		} finally {
 			DAOFermeture.fermeturesSilencieuses(resultat, preparedStatement, connexion);
 		}
-			return musicien;
-		}
+		
+		return musicien;
+	}
 
 	@Override
 	public List<Musicien> lister() {
